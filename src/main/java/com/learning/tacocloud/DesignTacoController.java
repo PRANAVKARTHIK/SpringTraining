@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.learning.repositories.IngredientRepository;
+import com.learning.repositories.TacoRepository;
 import com.learning.tacocloud.Ingredient.Type;
 
 @Controller
@@ -26,21 +27,14 @@ public class DesignTacoController {
 	@Autowired
 	IngredientRepository ir;
 	
+	@Autowired
+	TacoRepository tr;
+	
 	
 	@GetMapping
 	public String showDesignForm(Model model) {
 
 		List<Ingredient> ingredients = new ArrayList<>();
-//		ingredients.add(new Ingredient("1", "Flour Tortilla", Type.Wrap));
-//		ingredients.add(new Ingredient("2", "Ground Beef", Type.Proteins));
-//		ingredients.add(new Ingredient("3", "Carnitas", Type.Proteins));
-//		ingredients.add(new Ingredient("4", "Diced Tomatoes", Type.Veggies));
-//		ingredients.add(new Ingredient("CHED", "Cheddar", Type.Cheese));
-//		ingredients.add(new Ingredient("JACK", "Monterrey Jack", Type.Cheese));
-//		ingredients.add(new Ingredient("SLSA", "Salsa", Type.Sause));
-//		ingredients.add(new Ingredient("SRCR", "Sour Cream", Type.Sause));
-		
-		
 		ingredients=(List<Ingredient>) ir.findAll();
 
 
@@ -61,6 +55,8 @@ public class DesignTacoController {
 
 	@PostMapping
 	public String processDesign(Taco taco){
+		taco.createdAt();
+		tr.save(taco);
 		log.info("Processed Taco");
 		return "redirect:/orders/current";	
 	}

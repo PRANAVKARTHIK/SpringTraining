@@ -3,6 +3,7 @@ package com.learning.tacocloud;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,23 +13,29 @@ import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 public class Taco {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(name="id",columnDefinition = "text")
 	String id;
 	
 	@NotNull
 	@Size(min=5,message="Minimum 5 characters long")
+	@Column(name="name")
 	String name;
 	
 	@ManyToMany(targetEntity=Ingredient.class)
 	@Size(min=1,message="Minimum 1 ingredient")
+	@Column(name="ingredient_list")
 	List<String> ingredients;
 	
-	
+	@Column(name="createdAt")
 	LocalDate createdAt;
 	
 	public String getName() {
