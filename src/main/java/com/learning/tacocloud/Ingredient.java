@@ -1,18 +1,35 @@
 package com.learning.tacocloud;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Ingredient {
+@Table(name="ingredient")
+public class Ingredient implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name="id")
 	public String id;
+	
+	@Column(name="name")
 	public String name;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="type")
 	public Type type;
 	
 	public static enum Type{
-		Wrap,Proteins,Veggies,Cheese,Sause
+		Wrap,Proteins,Veggies,Cheese,Sauce
 	}
 	
 
@@ -40,12 +57,10 @@ public class Ingredient {
 		this.type = type;
 	}
 
-	public Ingredient(String id, String name, Type type) {
+	public Ingredient() {
 		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
 	}
+
 
 	
 }

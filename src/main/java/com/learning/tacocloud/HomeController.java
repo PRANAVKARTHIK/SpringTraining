@@ -23,10 +23,4 @@ public class HomeController {
 		return str;
 	}
 	
-	@PostMapping("/genericmail")
-	@ResponseBody
-	public String mailTrigger(@RequestBody JSONObject inputJSON){
-		
-		return "completed";
-	}
 }
