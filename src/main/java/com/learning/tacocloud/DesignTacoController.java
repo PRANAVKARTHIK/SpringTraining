@@ -55,7 +55,6 @@ public class DesignTacoController {
 
 	@PostMapping
 	public String processDesign(Taco taco){
-		taco.createdAt();
 		tr.save(taco);
 		log.info("Processed Taco");
 		return "redirect:/orders/current";	

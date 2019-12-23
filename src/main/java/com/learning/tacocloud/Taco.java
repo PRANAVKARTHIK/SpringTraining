@@ -1,6 +1,7 @@
 package com.learning.tacocloud;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,10 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import utilityclasses.DateUtil;
 
 
 @Entity
@@ -33,10 +38,12 @@ public class Taco {
 	@ManyToMany(targetEntity=Ingredient.class)
 	@Size(min=1,message="Minimum 1 ingredient")
 	@Column(name="ingredient_list")
-	List<String> ingredients;
+	List<Ingredient> ingredient;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="createdAt")
-	LocalDate createdAt;
+	Date createdAt;
+	
 	
 	public String getName() {
 		return name;
@@ -44,11 +51,11 @@ public class Taco {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<String> getIngredients() {
-		return ingredients;
+	public List<Ingredient> getIngredients() {
+		return ingredient;
 	}
-	public void setIngredients(List<String> ingredients) {
-		this.ingredients = ingredients;
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredient = ingredients;
 	}
 	
 	public String getId() {
@@ -60,7 +67,8 @@ public class Taco {
 	
 	@PrePersist
 	void createdAt(){
-		this.createdAt=LocalDate.now();
+		DateUtil dateUtil=new DateUtil();
+		this.createdAt=dateUtil.convertToDatabaseColumn(LocalDate.now());
 	}
 	
 	public Taco() {
