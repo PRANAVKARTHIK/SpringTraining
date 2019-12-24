@@ -73,8 +73,11 @@ public class DesignTacoController {
 	@ResponseBody
 	public List<TacoDTO> getAllDesignsList() {
 		log.info("All designs listed");
-		Type type= new TypeToken<List<TacoDTO>>(){}.getType();
-		List<TacoDTO> tacoList=modelmapper.map(tr.findAll(), type);
+		List<Taco> tacoEntList=tr.findAll();
+//		Type type= new TypeToken<List<TacoDTO>>(){}.getType();
+//		modelmapper.createTypeMap(Taco.class, TacoDTO.class);
+//		List<TacoDTO> tacoList=modelmapper.map(tacoEntList, type);
+		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
 		return tacoList;
 	}
 }
