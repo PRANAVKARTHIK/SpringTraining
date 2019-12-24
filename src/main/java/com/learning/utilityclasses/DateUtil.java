@@ -1,4 +1,4 @@
-package utilityclasses;
+package com.learning.utilityclasses;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Converter
 public class DateUtil implements AttributeConverter<LocalDate, Date>{
 

@@ -3,7 +3,7 @@ package com.learning.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.learning.tacocloud.Taco;
+import com.learning.entities.Taco;
 
 @Repository
 public interface TacoRepository extends JpaRepository<Taco, String> {

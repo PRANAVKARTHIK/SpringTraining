@@ -1,4 +1,4 @@
-package com.learning.tacocloud;
+package com.learning.entities;
 
 import java.io.Serializable;
 
@@ -26,9 +26,9 @@ public class Ingredient implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="type")
-	public Type type;
+	public IngType type;
 	
-	public static enum Type{
+	public static enum IngType{
 		Wrap,Proteins,Veggies,Cheese,Sauce
 	}
 	
@@ -49,11 +49,11 @@ public class Ingredient implements Serializable {
 		this.name = name;
 	}
 
-	public Type getType() {
+	public IngType getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(IngType type) {
 		this.type = type;
 	}
 
