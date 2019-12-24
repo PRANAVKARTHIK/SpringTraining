@@ -22,6 +22,9 @@ import com.learning.entities.Taco;
 import com.learning.entities.Ingredient.IngType;
 import com.learning.repositories.IngredientRepository;
 import com.learning.repositories.TacoRepository;
+import com.learning.utilityclasses.ConstantInterface;
+import com.learning.utilityclasses.ValidResponse;
+
 import java.lang.reflect.Type;
 
 @Controller
@@ -38,6 +41,8 @@ public class DesignTacoController {
 	TacoRepository tr;
 	
 	ModelMapper modelmapper;
+	
+	ValidResponse validResponse=new ValidResponse();
 	
 	
 	@GetMapping
@@ -71,13 +76,17 @@ public class DesignTacoController {
 	
 	@PostMapping("/listall")
 	@ResponseBody
-	public List<TacoDTO> getAllDesignsList() {
+	public ValidResponse getAllDesignsList() {
 		log.info("All designs listed");
+		
 		List<Taco> tacoEntList=tr.findAll();
 //		Type type= new TypeToken<List<TacoDTO>>(){}.getType();
 //		modelmapper.createTypeMap(Taco.class, TacoDTO.class);
 //		List<TacoDTO> tacoList=modelmapper.map(tacoEntList, type);
 		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
-		return tacoList;
+		validResponse.setStatus(ConstantInterface.SuccessString);
+		validResponse.setMessage("Completed listing all taco and its ingredients");
+		validResponse.setData(tacoList);
+		return validResponse;
 	}
 }
