@@ -27,7 +27,7 @@ CREATE TABLE `ingredient` (
   `name` varchar(25) NOT NULL,
   `type` varchar(10) NOT NULL,
   UNIQUE KEY `ingredient_id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
