@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({"com.learning.repositories","com.learning.controllers","com.learning.utilityclasses"})
+@ComponentScan({"com.learning.controllers","com.learning.utilityclasses"})
 @Configuration
 @EntityScan("com.learning.entities")
 @EnableJpaRepositories("com.learning.repositories")
