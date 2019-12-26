@@ -99,7 +99,7 @@ public class DesignTacoController {
 	}
 	@GetMapping("/mergecheck_modmap")
 	@ResponseBody
-	public String checkMerger(){
+	public String checkModMap(){
 		return "check merger from ModMap";
 	}
 	
