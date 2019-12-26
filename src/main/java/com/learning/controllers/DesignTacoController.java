@@ -97,4 +97,9 @@ public class DesignTacoController {
 		validResponse.setData(finalList);
 		return validResponse;
 	}
+	@GetMapping("/mergecheck")
+	@ResponseBody
+	public String checkMerger(){
+		return "check merger from ModMap";
+	}
 }
