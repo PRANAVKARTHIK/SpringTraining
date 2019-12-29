@@ -3,6 +3,7 @@ package com.learning.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.learning.entities.Ingredient;
 import com.learning.entities.Taco;
 
 public class TacoDTO {
@@ -36,6 +37,13 @@ public class TacoDTO {
 		}
 		return tacoDTOList;
 		
+	}
+	
+	public static Taco getEntityFromDTO(TacoDTO tacoDTO){
+		Taco taco=new Taco();
+		taco.setName(tacoDTO.getName());
+		taco.setIngredients(IngredientDTO.setIngredientEntityFromDTO(tacoDTO.getIngredients()));
+		return taco;
 	}
 	
 }

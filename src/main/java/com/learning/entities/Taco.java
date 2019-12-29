@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Taco {
 	@Column(name="updated_at")
 	Date updatedAt;
 	
-	@ManyToMany(targetEntity=Ingredient.class)
+	@ManyToMany(targetEntity=Ingredient.class,cascade=CascadeType.ALL)
 	@Size(min=1,message="Minimum 1 ingredient")
 	List<Ingredient> ingredient;
 	
