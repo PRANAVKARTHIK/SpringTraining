@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.learning.dto.TacoDTO;
 import com.learning.entities.Ingredient;
-import com.learning.entities.Taco;
 import com.learning.entities.Ingredient.IngType;
+import com.learning.entities.Taco;
 import com.learning.repositories.IngredientRepository;
 import com.learning.repositories.TacoRepository;
-import java.lang.reflect.Type;
 
 @Controller
 @RequestMapping("/design")
@@ -43,9 +41,8 @@ public class DesignTacoController {
 	@GetMapping
 	public String showDesignForm(Model model) {
 
-		List<Ingredient> ingredients = new ArrayList<>();
+		List<Ingredient> ingredients;
 		ingredients=ir.findAll();
-
 
 		IngType[] types = Ingredient.IngType.values();
 		for (IngType type : types) {
@@ -74,10 +71,17 @@ public class DesignTacoController {
 	public List<TacoDTO> getAllDesignsList() {
 		log.info("All designs listed");
 		List<Taco> tacoEntList=tr.findAll();
+		return TacoDTO.getDtoFromEntity(tacoEntList);
+	}
+	
+	@PostMapping("/listall_MM")
+	@ResponseBody
+	public List<TacoDTO> getAllDesignsListModMap() {
+		log.info("All designs listed");
+		List<Taco> tacoEntList=tr.findAll();
 //		Type type= new TypeToken<List<TacoDTO>>(){}.getType();
 //		modelmapper.createTypeMap(Taco.class, TacoDTO.class);
 //		List<TacoDTO> tacoList=modelmapper.map(tacoEntList, type);
-		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
-		return tacoList;
+		return TacoDTO.getDtoFromEntity(tacoEntList);
 	}
 }
