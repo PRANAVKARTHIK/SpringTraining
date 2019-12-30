@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +45,8 @@ public class DesignTacoController {
 	@GetMapping
 	public String showDesignForm(Model model) {
 
-		List<Ingredient> ingredients = new ArrayList<>();
+		List<Ingredient> ingredients;
 		ingredients=ir.findAll();
-
 
 		IngType[] types = Ingredient.IngType.values();
 		for (IngType type : types) {

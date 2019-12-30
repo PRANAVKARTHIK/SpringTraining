@@ -26,7 +26,7 @@ public class TacoDTO {
 	
 	public static List<TacoDTO> getDtoFromEntity(List<Taco> tacoEntity){
 		
-		List<TacoDTO> tacoDTOList=new ArrayList<TacoDTO>();
+		List<TacoDTO> tacoDTOList=new ArrayList<>();
 		for(Taco taco:tacoEntity) {
 			if(!taco.getName().isEmpty()) {
 				TacoDTO tacoDTO=new TacoDTO();
