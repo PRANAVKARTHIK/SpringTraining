@@ -21,6 +21,8 @@ import com.learning.entities.Ingredient.IngType;
 import com.learning.entities.Taco;
 import com.learning.repositories.IngredientRepository;
 import com.learning.repositories.TacoRepository;
+import com.learning.utilityclasses.ConstantInterface;
+import com.learning.utilityclasses.ValidResponse;
 
 @Controller
 @RequestMapping("/design")
@@ -35,7 +37,9 @@ public class DesignTacoController {
 	@Autowired
 	TacoRepository tr;
 	
-	ModelMapper modelmapper;
+	ModelMapper modelmapper= new ModelMapper();
+	
+	ValidResponse validResponse=new ValidResponse();
 	
 	
 	@GetMapping
@@ -68,20 +72,38 @@ public class DesignTacoController {
 	
 	@PostMapping("/listall")
 	@ResponseBody
-	public List<TacoDTO> getAllDesignsList() {
+	public ValidResponse getAllDesignsList() {
 		log.info("All designs listed");
+		
 		List<Taco> tacoEntList=tr.findAll();
-		return TacoDTO.getDtoFromEntity(tacoEntList);
+		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
+		validResponse.setStatus(ConstantInterface.SuccessString);
+		validResponse.setMessage("Completed listing all taco and its ingredients");
+		validResponse.setData(tacoList);
+		return validResponse;
 	}
 	
-	@PostMapping("/listall_MM")
+	@PostMapping("/listall_mm")
 	@ResponseBody
-	public List<TacoDTO> getAllDesignsListModMap() {
+	public ValidResponse getAllDesignsListModMap() {
 		log.info("All designs listed");
+		
 		List<Taco> tacoEntList=tr.findAll();
-//		Type type= new TypeToken<List<TacoDTO>>(){}.getType();
-//		modelmapper.createTypeMap(Taco.class, TacoDTO.class);
-//		List<TacoDTO> tacoList=modelmapper.map(tacoEntList, type);
-		return TacoDTO.getDtoFromEntity(tacoEntList);
+		List<TacoDTO> finalList=tacoEntList.parallelStream().map(t->modelmapper.map(t, TacoDTO.class)).collect(Collectors.toList());
+		validResponse.setStatus(ConstantInterface.SuccessString);
+		validResponse.setMessage("Completed listing all taco and its ingredients");
+		validResponse.setData(finalList);
+		return validResponse;
+	}
+	@GetMapping("/mergecheck_modmap")
+	@ResponseBody
+	public String checkModMap(){
+		return "check merger from ModMap";
+	}
+	
+	@GetMapping("/mergecheck")
+	@ResponseBody
+	public String checkMerger(){
+		return "check merger from MergeChecker";
 	}
 }
