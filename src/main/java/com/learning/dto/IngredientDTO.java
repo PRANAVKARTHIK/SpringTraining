@@ -1,7 +1,9 @@
 package com.learning.dto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.learning.entities.Ingredient;
 
@@ -55,5 +57,21 @@ public class IngredientDTO {
 			ingredientList.add(ingredient);
 		}
 		return ingredientList;
+	}
+	
+	public static String getIdByName(String name) {
+		HashMap<String,String> nameMapper=new HashMap<>() ;
+		nameMapper.put("Carnitas", "CARN");
+		nameMapper.put("Cheddar", "CHED");
+		nameMapper.put("Corn Tortilla", "COTO");
+		nameMapper.put("Flour Tortilla", "FLTO");
+		nameMapper.put("Ground Beef", "GRBF");
+		nameMapper.put("Monterrey Jack", "JACK");
+		nameMapper.put("Lettuce", "LETC");
+		nameMapper.put("Salsa", "SLSA");
+		nameMapper.put("Sour Cream", "SRCR");
+		nameMapper.put("Diced Tomatoes", "TMTO");
+		
+		return nameMapper.get(name);
 	}
 }

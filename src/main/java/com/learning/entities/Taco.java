@@ -44,7 +44,7 @@ public class Taco {
 	@Column(name="updated_at")
 	Date updatedAt;
 	
-	@ManyToMany(targetEntity=Ingredient.class,cascade=CascadeType.ALL)
+	@ManyToMany(targetEntity=Ingredient.class,cascade=CascadeType.PERSIST)
 	@Size(min=1,message="Minimum 1 ingredient")
 	List<Ingredient> ingredient;
 	

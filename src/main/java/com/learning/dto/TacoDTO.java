@@ -23,7 +23,9 @@ public class TacoDTO {
 		this.ingredients = ingredients;
 	}
 	
-	
+	public TacoDTO() {
+		super();
+	}
 	public static List<TacoDTO> getDtoFromEntity(List<Taco> tacoEntity){
 		
 		List<TacoDTO> tacoDTOList=new ArrayList<>();
