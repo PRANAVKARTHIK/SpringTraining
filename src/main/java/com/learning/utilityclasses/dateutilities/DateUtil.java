@@ -1,4 +1,4 @@
-package com.learning.utilityclasses;
+package com.learning.utilityclasses.dateutilities;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Converter
 public class DateUtil implements AttributeConverter<LocalDate, Date>{
 
+
 	@Override
 	public Date convertToDatabaseColumn(LocalDate locDate) {
 		return locDate == null ? null : Date.valueOf(locDate);
@@ -21,5 +22,5 @@ public class DateUtil implements AttributeConverter<LocalDate, Date>{
 	public LocalDate convertToEntityAttribute(Date sqlDate) {
 		return sqlDate == null ? null : sqlDate.toLocalDate();
 	}
-
+	
 }

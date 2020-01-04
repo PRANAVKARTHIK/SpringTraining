@@ -3,7 +3,6 @@ package com.learning.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.learning.entities.Ingredient;
 import com.learning.entities.Taco;
 
 public class TacoDTO {

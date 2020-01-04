@@ -1,13 +1,10 @@
 package com.learning.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learning.dto.IngredientDTO;
 import com.learning.dto.TacoDTO;
 import com.learning.entities.Ingredient;
@@ -31,7 +27,7 @@ public class DesignTacoRESTController {
 
 	TacoRepository tr;
 	
-	ModelMapper modelMapper=new ModelMapper();
+	ModelMapper modelMapper;
 	
 	public DesignTacoRESTController(TacoRepository tr) {
 		this.tr = tr;
@@ -58,7 +54,7 @@ public class DesignTacoRESTController {
 	
 	
 	/*
-	 * Sample testing code
+	 ********* Sample testing code
 	 * */
 	@PostMapping(value="/ndto",consumes=ConstantInterface.JSONString)
 	public void postTaco(@RequestBody JSONObject taco){

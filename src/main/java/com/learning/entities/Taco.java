@@ -1,6 +1,6 @@
 package com.learning.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,16 +14,22 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.learning.utilityclasses.DateUtil;
+import com.learning.utilityclasses.dateutilities.TimestampUtil;
 
 
 @Entity
 public class Taco {
+	
+	@Autowired
+	@Transient
+	TimestampUtil timestampUtil;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -36,11 +42,11 @@ public class Taco {
 	@Column(name="name")
 	String name;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	Date createdAt;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	Date updatedAt;
 	
@@ -72,9 +78,9 @@ public class Taco {
 	@PrePersist
 	@PreUpdate
 	void createdAt(){
-		DateUtil dateUtil=new DateUtil();
-		this.createdAt=dateUtil.convertToDatabaseColumn(LocalDate.now());
-		this.updatedAt=dateUtil.convertToDatabaseColumn(LocalDate.now());
+		
+		this.createdAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
+		this.updatedAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 	}
 	
 	public Taco() {
