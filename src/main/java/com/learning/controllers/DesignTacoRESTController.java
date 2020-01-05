@@ -18,6 +18,7 @@ import com.learning.dto.IngredientDTO;
 import com.learning.dto.TacoDTO;
 import com.learning.entities.Ingredient;
 import com.learning.entities.Taco;
+import com.learning.repositories.IngredientRepository;
 import com.learning.repositories.TacoRepository;
 import com.learning.utilityclasses.ConstantInterface;
 
@@ -27,12 +28,19 @@ public class DesignTacoRESTController {
 
 	TacoRepository tr;
 	
+	IngredientRepository ir;
+	
 	ModelMapper modelMapper;
 	
 	public DesignTacoRESTController(TacoRepository tr) {
 		this.tr = tr;
 	}
 
+	@GetMapping("/ingredients")
+	public List<Ingredient> getAllIngredients(){
+		return ir.findAll();
+	}
+	
 	@GetMapping("/{name}")
 	public ResponseEntity<Taco> getRecentTacoDesigns(@PathVariable("name") String name){
 		Optional<Taco> taco=tr.findByName(name);
@@ -54,7 +62,7 @@ public class DesignTacoRESTController {
 	
 	
 	/*
-	 ********* Sample testing code
+	 ********* Sample testing code**************
 	 * */
 	@PostMapping(value="/ndto",consumes=ConstantInterface.JSONString)
 	public void postTaco(@RequestBody JSONObject taco){
