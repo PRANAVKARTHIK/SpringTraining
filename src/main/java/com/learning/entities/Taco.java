@@ -18,11 +18,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.learning.utilityclasses.DateUtil;
 
 
 @Entity
+@RestResource(path = "tacos", rel="tacos")
 public class Taco {
 	
 	@Id
