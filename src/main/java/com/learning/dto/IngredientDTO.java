@@ -3,13 +3,20 @@ package com.learning.dto;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.learning.entities.Ingredient;
+import com.learning.entities.Ingredient.IngType;
+import com.learning.utilityclasses.Constants;
 
 public class IngredientDTO {
 	
 	String id;
 	String name;
 	String ingType;
+	
 	
 	public String getName() {
 		return name;
@@ -44,17 +51,9 @@ public class IngredientDTO {
 		return ingredientList;
 	}
 	
-	public static List<Ingredient> setIngredientEntityFromDTO(List<IngredientDTO> ingredientDTO){
-		List<Ingredient> ingredientList=new ArrayList<>();
-		Ingredient ingredient;
-		for(IngredientDTO idto:ingredientDTO){
-			ingredient=new Ingredient();
-			ingredient.setId(idto.getId());
-			ingredient.setName(idto.getName());
-			ingredient.setType(Ingredient.IngType.valueOf(idto.getIngType()));
-			ingredientList.add(ingredient);
-		}
-		return ingredientList;
+	public static List<Ingredient> setIngredientEntityFromDTO(List<String> ingredientList){
+		List<Ingredient> ingredientEntityList=ingredientList.stream().map(ing->Constants.nameMapper.get(ing)).collect(Collectors.toList());
+		return ingredientEntityList;
 	}
 	
 	public static String getIdByName(String name) {

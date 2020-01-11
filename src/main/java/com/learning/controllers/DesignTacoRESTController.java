@@ -71,7 +71,8 @@ public class DesignTacoRESTController {
 	public void postTaco(@RequestBody JSONObject taco){
 		TacoDTO tacoDTO=new TacoDTO();
 		tacoDTO.setName((String)taco.get("name"));
-		tacoDTO.setIngredients((List<IngredientDTO>)taco.get("ingredients"));
+		tacoDTO.setIngredients((List<String>)taco.get("ingredients"));
+//		tacoDTO.setIngredients((List<IngredientDTO>)taco.get("ingredients"));
 		Taco tacoObject=TacoDTO.getEntityFromDTO(tacoDTO);
 		tr.save(tacoObject);
 	}
