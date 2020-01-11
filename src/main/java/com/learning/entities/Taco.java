@@ -20,11 +20,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.learning.utilityclasses.dateutilities.TimestampUtil;
 
 
 @Entity
+@RestResource(path = "tacos", rel="tacos")
 public class Taco {
 	
 	@Autowired
