@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.learning.repositories.TacoRepository;
 import com.learning.utilityclasses.ConstantInterface;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(path="/design",produces=ConstantInterface.JSONString)
 public class DesignTacoRESTController {
 
@@ -32,8 +34,9 @@ public class DesignTacoRESTController {
 	
 	ModelMapper modelMapper;
 	
-	public DesignTacoRESTController(TacoRepository tr) {
+	public DesignTacoRESTController(TacoRepository tr,IngredientRepository ir) {
 		this.tr = tr;
+		this.ir=ir;
 	}
 
 	@GetMapping("/ingredients")
