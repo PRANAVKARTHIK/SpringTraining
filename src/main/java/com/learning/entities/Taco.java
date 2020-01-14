@@ -29,7 +29,6 @@ import com.learning.utilityclasses.dateutilities.TimestampUtil;
 @RestResource(path = "tacos", rel="tacos")
 public class Taco {
 	
-	@Autowired
 	@Transient
 	TimestampUtil timestampUtil;
 	
@@ -52,7 +51,7 @@ public class Taco {
 	@Column(name="updated_at")
 	Date updatedAt;
 	
-	@ManyToMany(targetEntity=Ingredient.class,cascade=CascadeType.PERSIST)
+	@ManyToMany(targetEntity=Ingredient.class)
 	@Size(min=1,message="Minimum 1 ingredient")
 	List<Ingredient> ingredient;
 	
@@ -77,15 +76,16 @@ public class Taco {
 		this.id = id;
 	}
 	
+	
 	@PrePersist
 	@PreUpdate
-	void createdAt(){
-		
+	public void createdAt(){
 		this.createdAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 		this.updatedAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 	}
 	
 	public Taco() {
+		timestampUtil=new TimestampUtil();
 	}
 	
 	

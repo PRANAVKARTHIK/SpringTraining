@@ -75,10 +75,10 @@ public class DesignTacoController {
 		log.info("All designs listed");
 		
 		List<Taco> tacoEntList=tr.findAll();
-		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
+//		List<TacoDTO> tacoList=TacoDTO.getDtoFromEntity(tacoEntList);
 		validResponse.setStatus(ConstantInterface.SuccessString);
 		validResponse.setMessage("Completed listing all taco and its ingredients");
-		validResponse.setData(tacoList);
+//		validResponse.setData(tacoList);
 		return validResponse;
 	}
 	

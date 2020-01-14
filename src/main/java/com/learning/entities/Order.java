@@ -60,7 +60,7 @@ public class Order {
 	List<Taco> tacos = new ArrayList<>();
 
 	public Order() {
-		// For Hibernate
+		timestampUtil=new TimestampUtil();
 	}
 
 	public String getName() {
@@ -121,6 +121,14 @@ public class Order {
 
 	public void addDesign(Taco design) {
 		this.tacos.add(design);
+	}
+
+	public List<Taco> getTacos() {
+		return tacos;
+	}
+
+	public void setTacos(List<Taco> tacos) {
+		this.tacos = tacos;
 	}
 
 	@PrePersist

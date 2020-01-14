@@ -12,15 +12,18 @@ import org.springframework.stereotype.Component;
 @Converter
 public class TimestampUtil implements AttributeConverter<LocalDateTime,Timestamp > {
 
+	public TimestampUtil() {
+		super();
+	}
+
 	@Override
 	public Timestamp convertToDatabaseColumn(LocalDateTime locDateTime) {
 		return locDateTime==null?null:Timestamp.valueOf(locDateTime);
 	}
 
 	@Override
-	public LocalDateTime convertToEntityAttribute(Timestamp arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public LocalDateTime convertToEntityAttribute(Timestamp sqlDate) {
+		return sqlDate==null?null:sqlDate.toLocalDateTime();
 	}
 
 }

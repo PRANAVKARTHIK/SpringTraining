@@ -25,7 +25,8 @@ public class Ingredient {
 		Wrap,Proteins,Veggies,Cheese,Sauce
 	}
 	
-
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -54,6 +55,14 @@ public class Ingredient {
 		super();
 	}
 
+	public Ingredient(String id, String name, IngType type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+	}
+
+	
 
 	
 }

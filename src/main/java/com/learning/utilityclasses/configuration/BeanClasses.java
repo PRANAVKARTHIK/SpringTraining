@@ -1,8 +1,12 @@
 package com.learning.utilityclasses.configuration;
 
+import java.util.HashMap;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.learning.entities.Ingredient;
+import com.learning.entities.Ingredient.IngType;
 import com.learning.utilityclasses.dateutilities.DateUtil;
 import com.learning.utilityclasses.dateutilities.TimestampUtil;
 
@@ -18,5 +22,4 @@ public class BeanClasses {
 		return new TimestampUtil();
 	}
 
-	
 }

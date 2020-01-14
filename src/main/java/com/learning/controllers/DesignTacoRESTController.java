@@ -24,7 +24,7 @@ import com.learning.repositories.TacoRepository;
 import com.learning.utilityclasses.ConstantInterface;
 
 @RestController
-@CrossOrigin(value = "*")
+@CrossOrigin(origins="*")
 @RequestMapping(path="/design",produces=ConstantInterface.JSONString)
 public class DesignTacoRESTController {
 
@@ -34,8 +34,9 @@ public class DesignTacoRESTController {
 	
 	ModelMapper modelMapper;
 	
-	public DesignTacoRESTController(TacoRepository tr) {
+	public DesignTacoRESTController(TacoRepository tr,IngredientRepository ir) {
 		this.tr = tr;
+		this.ir=ir;
 	}
 
 	@GetMapping("/ingredients")
@@ -70,7 +71,8 @@ public class DesignTacoRESTController {
 	public void postTaco(@RequestBody JSONObject taco){
 		TacoDTO tacoDTO=new TacoDTO();
 		tacoDTO.setName((String)taco.get("name"));
-		tacoDTO.setIngredients((List<IngredientDTO>)taco.get("ingredients"));
+		tacoDTO.setIngredients((List<String>)taco.get("ingredients"));
+//		tacoDTO.setIngredients((List<IngredientDTO>)taco.get("ingredients"));
 		Taco tacoObject=TacoDTO.getEntityFromDTO(tacoDTO);
 		tr.save(tacoObject);
 	}
