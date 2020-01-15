@@ -6,6 +6,16 @@ public class ValidResponse {
 	Object data;
 	String message;
 	
+	public ValidResponse(String string, Object object, String string2) {
+		this.status=string;
+		this.data=object;
+		this.message=string2;
+	}
+	
+	public ValidResponse() {
+		super();
+	}
+
 	public String getStatus() {
 		return status;
 	}

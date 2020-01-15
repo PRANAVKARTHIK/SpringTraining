@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -22,10 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.learning.utilityclasses.dateutilities.TimestampUtil;
 
 @Entity
-@Table(name = "Taco_Order")
+@Table(name = "tacoOrder")
 public class Order {
 
-	@Autowired
 	@Transient
 	TimestampUtil timestampUtil;
 	
@@ -56,11 +58,14 @@ public class Order {
 	@Column(name = "placed_at")
 	Date placedAt;
 
-	@ManyToMany(targetEntity = Taco.class)
+	@ManyToMany(targetEntity = Taco.class,cascade=CascadeType.PERSIST)
+	@JoinTable(
+			  name = "taco_order_tacos", 
+			  joinColumns = @JoinColumn(name = "TacoOrder_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "taco_id"))
 	List<Taco> tacos = new ArrayList<>();
 
 	public Order() {
-		timestampUtil=new TimestampUtil();
 	}
 
 	public String getName() {
@@ -133,6 +138,7 @@ public class Order {
 
 	@PrePersist
 	public void placedAt() {
+		timestampUtil=new TimestampUtil();
 		this.placedAt = timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 	}
 }

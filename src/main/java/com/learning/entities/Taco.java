@@ -80,12 +80,13 @@ public class Taco {
 	@PrePersist
 	@PreUpdate
 	public void createdAt(){
+		timestampUtil=new TimestampUtil();
 		this.createdAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 		this.updatedAt=timestampUtil.convertToDatabaseColumn(LocalDateTime.now());
 	}
 	
 	public Taco() {
-		timestampUtil=new TimestampUtil();
+		
 	}
 	
 	

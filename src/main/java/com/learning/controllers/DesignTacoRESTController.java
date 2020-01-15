@@ -1,5 +1,6 @@
 package com.learning.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learning.dto.IngredientDTO;
 import com.learning.dto.TacoDTO;
 import com.learning.entities.Ingredient;
@@ -63,19 +66,23 @@ public class DesignTacoRESTController {
 		tr.save(taco);
 	}
 	
+	@PostMapping(value="/ndto",consumes=ConstantInterface.JSONString)
+	public void postTaco(@RequestBody JSONObject taco){
+		TacoDTO tacoDTO=new TacoDTO();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			tacoDTO=mapper.readValue(taco.toJSONString(), TacoDTO.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Taco tacoObject=TacoDTO.getEntityFromDTO(tacoDTO);
+		tr.save(tacoObject);
+	}
 	
 	/*
 	 ********* Sample testing code**************
 	 * */
-	@PostMapping(value="/ndto",consumes=ConstantInterface.JSONString)
-	public void postTaco(@RequestBody JSONObject taco){
-		TacoDTO tacoDTO=new TacoDTO();
-		tacoDTO.setName((String)taco.get("name"));
-		tacoDTO.setIngredients((List<String>)taco.get("ingredients"));
-//		tacoDTO.setIngredients((List<IngredientDTO>)taco.get("ingredients"));
-		Taco tacoObject=TacoDTO.getEntityFromDTO(tacoDTO);
-		tr.save(tacoObject);
-	}
+	
 	
 	@PostMapping(value="/tacosave")
 	public void saveTaco(@RequestBody JSONObject inputJson) {
