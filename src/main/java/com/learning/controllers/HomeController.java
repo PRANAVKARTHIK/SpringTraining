@@ -24,9 +24,10 @@ public class HomeController {
 	}
 	
 	@CrossOrigin("http://localhost:4200")
-	@GetMapping("ingredient")
+	@GetMapping("/ingredient")
 	@ResponseBody
 	public IngType[] IngredientTypes(){
+		System.out.println("Ingredient hit!!!");
 		return IngType.values();
 	}
 }
