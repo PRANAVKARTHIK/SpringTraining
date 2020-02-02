@@ -27,7 +27,6 @@ public class HomeController {
 	@GetMapping("/ingredient")
 	@ResponseBody
 	public IngType[] IngredientTypes(){
-		System.out.println("Ingredient hit!!!");
 		return IngType.values();
 	}
 }
