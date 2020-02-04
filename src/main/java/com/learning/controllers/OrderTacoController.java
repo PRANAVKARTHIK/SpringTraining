@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import com.learning.utilityclasses.ValidResponse;
 
 @RestController
 @RequestMapping(path="/orders")
+@CrossOrigin("*")
 public class OrderTacoController {
 	
 	OrderRepository or;
@@ -55,16 +57,17 @@ public class OrderTacoController {
 		return "redirect:/design";
 	}
 	
-	@PostMapping("/orders_dto")
-	public ValidResponse processOrderDTO(@RequestBody JSONObject orderJson){
+	@PostMapping(value="/orders_dto",consumes=ConstantInterface.JSONString)
+	public ValidResponse processOrderDTO(@RequestBody OrderDTO orderJson){
 		OrderDTO orderDTO= new OrderDTO();
-		ObjectMapper mapper=new ObjectMapper();
+//		ObjectMapper mapper=new ObjectMapper();
 		try {
-			orderDTO=mapper.readValue(orderJson.toJSONString(), OrderDTO.class);
-		Order order=OrderDTO.getEntityFromDTO(orderDTO);
+//			orderDTO=mapper.readValue(orderJson.toJSONString(), OrderDTO.class);
+			Order order=OrderDTO.getEntityFromDTO(orderJson);
 		or.save(order);
 		return new ValidResponse(ConstantInterface.SuccessString,null,"Completed order successfully");
-		} catch (IOException e) {
+		} catch (Exception e) {
+			System.out.println("Exception:"+e);
 			return new ValidResponse(ConstantInterface.ErrorString,null,"failed to complete order");
 		}
 	}
